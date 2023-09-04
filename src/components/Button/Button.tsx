@@ -1,8 +1,14 @@
+interface InternalRoundedButtonProps {
+  text: string; // Specify the type of children
+}
 interface RoundedButtonProps {
-  children: React.ReactNode; // Specify the type of children
+  children: string; // Specify the type of children
 }
 
-export const RoundedButton: React.FC<RoundedButtonProps> = ({ children }) => (
+// Let assume this button is import or exist in third party librart and it doesn't support the same props interface
+// that we have integrated in our app
+
+const InternalRoundedButton: React.FC<InternalRoundedButtonProps> = ({ text }) => (
   <button  style={{
     backgroundColor: '#3498db',
     color: '#fff',
@@ -11,5 +17,11 @@ export const RoundedButton: React.FC<RoundedButtonProps> = ({ children }) => (
     borderRadius: '20px',
     cursor: 'pointer',
     fontSize: '16px',
-  }}>{children}</button>
+  }}>{text}</button>
+);
+
+// Ensure a uniform interface
+
+export const RoundedButton: React.FC<RoundedButtonProps> = ({ children }) => (
+  <InternalRoundedButton text={children}></InternalRoundedButton>
 );
